@@ -1,7 +1,16 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Models\Article;
+use App\Models\Category;
+
+
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ArticlesController;
+use App\Http\Controllers\UserHomeController;
+use App\Http\Controllers\CategoriesController;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,13 +23,33 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::prefix('web')->as('web.')->middleware('auth')->group(function () {
+
+    Route::get('/home', UserHomeController::class)->name('home');
+
+    Route::resource('/articles', ArticlesController::class);
+
+    Route::resource('/categories', CategoriesController::class);
+
+    Route::resource('/comments', CommentController::class);
+
+    Route::resource('/profile', ProfileController::class);
+});
 Route::get('/', function () {
-    return view('welcome');
+    $articles = Article::inRandomOrder()->take(10)->get();
+    $categories = Category::all();
+    return view('web.website.home.index', compact('articles', 'categories'));
+})->name('home.index');
+
+Route::post('/notifications/{notification}/read', function ($notificationId) {
+    $notification = auth()->user()->notifications()->findOrFail($notificationId);
+    $notification->markAsRead();
+
+    return response()->json(['status' => 'success']);
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -28,4 +57,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
