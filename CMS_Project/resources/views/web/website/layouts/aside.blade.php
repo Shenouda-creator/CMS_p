@@ -3,7 +3,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
         <li class="nav-item">
-            <a class="nav-link " href="{{ route('web.home') }}">
+            <a class="nav-link " href="{{ Auth::user()->hasRole('admin') ? route('dashboard.home') : route('web.home') }}">
                 <i class="bi bi-grid"></i>
                 <span>S-blog</span>
             </a>

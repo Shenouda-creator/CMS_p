@@ -21,22 +21,30 @@
                             <div class="row g-4">
                                 @foreach($categories as $category)
                                     <div class="col-md-6 col-lg-4">
-                                        <div class="card border-0 shadow-lg h-100" style="border-radius: 1.5rem;">
+                                        <div class="card border-0 shadow-lg h-100 category-card" style="border-radius: 1.5rem; transition: box-shadow 0.3s, transform 0.2s;">
                                             <div class="card-body d-flex flex-column">
                                                 <div class="d-flex align-items-center mb-2">
                                                     <span class="badge bg-gradient me-2"
-                                                        style="background: linear-gradient(90deg, #667eea, #764ba2); color: #fff;">
+                                                        style="background: linear-gradient(90deg, #667eea, #764ba2); color: #fff; font-size: 1.2rem; padding: 0.7em 1em;">
                                                         <i class="bi bi-tag"></i>
                                                     </span>
-                                                    <span class="fw-bold fs-5">{{ $category->name }}</span>
+                                                    <span class="fw-bold fs-5 text-gradient"
+                                                        style="background: linear-gradient(90deg,#4e54c8,#8f94fb); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                                                        {{ $category->name }}
+                                                    </span>
                                                 </div>
                                                 <div class="text-muted mb-3">
                                                     <i class="bi bi-calendar"></i>
                                                     {{ $category->created_at->format('M d, Y') }}
                                                 </div>
+                                                <div class="mb-3">
+                                                    <span class="badge bg-info text-dark px-3 py-2">
+                                                        {{ $category->articles_count ?? $category->articles()->count() }} Articles
+                                                    </span>
+                                                </div>
                                                 <div class="mt-auto d-flex justify-content-end gap-2">
                                                     <a href="{{ route('dashboard.categories.edit', $category->id) }}"
-                                                        class="btn btn-sm btn-outline-primary rounded-pill px-3">
+                                                        class="btn btn-sm btn-outline-primary rounded-pill px-3 shadow-sm">
                                                         <i class="bi bi-pencil"></i> Edit
                                                     </a>
                                                     <form action="{{ route('dashboard.categories.destroy', $category->id) }}"
@@ -44,7 +52,7 @@
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit"
-                                                            class="btn btn-sm btn-outline-danger rounded-pill px-3"
+                                                            class="btn btn-sm btn-outline-danger rounded-pill px-3 shadow-sm"
                                                             onclick="return confirm('Are you sure?')">
                                                             <i class="bi bi-trash"></i> Delete
                                                         </button>
@@ -68,4 +76,22 @@
             </div>
         </section>
     </main>
+    <style>
+        .text-gradient {
+            background: linear-gradient(90deg,#4e54c8,#8f94fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .category-card:hover {
+            transform: translateY(-6px) scale(1.03);
+            box-shadow: 0 12px 32px rgba(78,84,200,0.18);
+        }
+        .btn-outline-primary, .btn-outline-danger {
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+        .btn-outline-primary:hover, .btn-outline-danger:hover {
+            box-shadow: 0 2px 8px #764ba255;
+            transform: scale(1.05);
+        }
+    </style>
 @endsection

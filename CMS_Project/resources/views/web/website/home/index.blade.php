@@ -12,7 +12,7 @@
         }
 
         .topbar {
-            background: linear-gradient(90deg, #4e54c8 0%, #8f94fb 100%);
+            background: linear-gradient(90deg, #93a03e 0%, #373c0d 100%);
             color: white;
             padding: 12px 0;
         }

@@ -48,26 +48,12 @@
                     </a>
                 </li>
                 <li>
-                    <a href="">
+                    <a href="{{ route('dashboard.categories.index') }}">
                         <i class="bi bi-circle"></i><span>Categories</span>
                     </a>
                 </li>
             </ul>
         </li><!-- End Articles Nav -->
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="">
-                <i class="bi bi-gear"></i>
-                <span>Settings</span>
-            </a>
-        </li><!-- End Settings Nav -->
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="">
-                <i class="bi bi-bell"></i>
-                <span>Notifications</span>
-            </a>
-        </li><!-- End Notifications Nav -->
 
 
 

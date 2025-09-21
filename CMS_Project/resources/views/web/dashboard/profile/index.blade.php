@@ -11,11 +11,20 @@
                         <div class="card border-0 shadow-lg" style="border-radius: 2rem; background: linear-gradient(120deg, #f8fafc 70%, #e0e7ff 100%);">
                             <div class="card-body p-5">
                                 <div class="d-flex align-items-center mb-4 flex-column flex-md-row text-center text-md-start">
-                                    <img src="{{ Auth::user()->profile_photo_url ?? 'https://ui-avatars.com/api/?name=' . urlencode(Auth::user()->name) . '&background=667eea&color=fff&size=128' }}"
-                                        alt="Profile Photo" class="rounded-circle shadow"
-                                        style="width: 110px; height: 110px; object-fit: cover; border: 4px solid #fff;">
+                                    <div class="position-relative">
+                                        <img src="{{ Auth::user()->profile_photo_url ?? 'https://ui-avatars.com/api/?name=' . urlencode(Auth::user()->name) . '&background=667eea&color=fff&size=128' }}"
+                                            alt="Profile Photo" class="rounded-circle shadow"
+                                            style="width: 120px; height: 120px; object-fit: cover; border: 4px solid #8f94fb;">
+                                        <span class="position-absolute bottom-0 end-0 translate-middle p-2 bg-gradient rounded-circle"
+                                              style="background: linear-gradient(90deg,#4e54c8,#8f94fb);">
+                                            <i class="bi bi-stars text-white"></i>
+                                        </span>
+                                    </div>
                                     <div class="ms-md-4 mt-3 mt-md-0">
-                                        <h2 class="fw-bold mb-1" style="letter-spacing: 1px;">{{ Auth::user()->name }}</h2>
+                                        <h2 class="fw-bold mb-1 text-gradient"
+                                            style="background: linear-gradient(90deg,#4e54c8,#8f94fb); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                                            {{ Auth::user()->name }}
+                                        </h2>
                                         <span class="badge px-3 py-2 mb-2" style="background: linear-gradient(90deg, #667eea, #764ba2); color: #fff; font-size: 1rem;">
                                             <i class="bi bi-person-badge"></i> {{ Auth::user()->role ?? 'Admin' }}
                                         </span>
@@ -49,8 +58,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <!-- Extra: User Stats -->
                                 <div class="row mb-3">
                                     <div class="col-md-6 mb-3 mb-md-0">
                                         <label class="form-label text-muted">Total Posts</label>
@@ -65,16 +72,12 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <!-- Extra: Bio -->
                                 <div class="mb-3">
                                     <label class="form-label text-muted">Bio</label>
                                     <div class="fw-normal fs-6" style="min-height: 32px;">
                                         {{ Auth::user()->bio ?? 'No bio added yet.' }}
                                     </div>
                                 </div>
-
-                                <!-- Social Links (if available) -->
                                 @if(Auth::user()->twitter || Auth::user()->facebook || Auth::user()->linkedin)
                                 <div class="mb-3">
                                     <label class="form-label text-muted">Social</label>
@@ -91,9 +94,8 @@
                                     </div>
                                 </div>
                                 @endif
-
                                 <div class="d-flex justify-content-end mt-4 gap-2 flex-wrap">
-                                    <a href="" class="btn btn-primary rounded-pill px-4 shadow-sm">
+                                    <a href="{{ route('dashboard.profile.edit', Auth::user()->id) }}" class="btn btn-primary rounded-pill px-4 shadow-sm">
                                         <i class="bi bi-pencil-square me-1"></i> Edit Profile
                                     </a>
                                     <a href="" class="btn btn-outline-secondary rounded-pill px-4 shadow-sm">
@@ -110,5 +112,26 @@
             </div>
         </section>
     </main>
+    <style>
+        .text-gradient {
+            background: linear-gradient(90deg,#4e54c8,#8f94fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .card {
+            transition: box-shadow 0.3s, transform 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-4px) scale(1.01);
+            box-shadow: 0 12px 32px rgba(78,84,200,0.18);
+        }
+        .btn-primary {
+            background: linear-gradient(90deg,#4e54c8,#8f94fb);
+            border: none;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(90deg,#8f94fb,#4e54c8);
+        }
+    </style>
 @endsection
 

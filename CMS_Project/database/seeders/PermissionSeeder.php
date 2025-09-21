@@ -45,14 +45,11 @@ class PermissionSeeder extends Seeder
 
 
 
-            //  $user1 = User::find(1);
-            // $user1->assignRole('admin');
-
             // $user2 = User::find(2);
-            // $user2->assignRole('auther');
+            // $user2->assignRole('admin');
 
-            $user4 = User::find(5);
-            $user4->assignRole('auther');
+            $user3 = User::find(3);
+            $user3->assignRole('auther');
 
         }
     }

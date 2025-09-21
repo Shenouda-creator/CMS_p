@@ -19,7 +19,7 @@
     </script>
 
     <div class="d-flex justify-content-between align-items-center w-100">
-        <a href="{{ route('dashboard.home') }}" class="logo d-flex align-items-center me-3">
+        <a href="{{ Auth::user()->hasRole('admin') ? route('dashboard.home') : route('web.home') }}" class="logo d-flex align-items-center me-3">
             <img src="{{ asset('dashboard/assets/img/logo.png') }}" alt="" style="height: 40px;">
             <span class="d-none d-lg-block fw-bold fs-4 ms-2" style="color: #667eea;">{{ env('APP_NAME') }}</span>
         </a>
@@ -136,18 +136,7 @@
                                 <span>My Profile</span>
                             </a>
                         </li>
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center" href="#">
-                                <i class="bi bi-gear"></i>
-                                <span>Account Settings</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center" href="#">
-                                <i class="bi bi-question-circle"></i>
-                                <span>Need Help?</span>
-                            </a>
-                        </li>
+
                         <li>
                             <hr class="dropdown-divider">
                         </li>
